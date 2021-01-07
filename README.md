@@ -1,5 +1,5 @@
 # StateManager
- A library that can easily switch different states like empty、error、loading、content and so on.
+ A library that can easily switch different states.
 
 ## Usage
 
