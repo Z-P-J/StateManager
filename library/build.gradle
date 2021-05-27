@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
 
 android {
     buildToolsVersion '28.0.3'
@@ -15,16 +14,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-
-    publish {
-        artifactId = 'StateManager'
-        userOrg = 'z-p-j'
-        groupId = 'com.zpj.widget'
-        publishVersion = '1.0.0'
-        desc = 'A library that can easily switch different states.'
-        website = 'https://github.com/Z-P-J/StateManager'
-        licences = ['Apache-2.0']
     }
 
 }
