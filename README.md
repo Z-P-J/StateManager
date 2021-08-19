@@ -6,14 +6,13 @@
 step 1:
 
 ```java
-implementation 'com.zpj.widget:StateManager:1.0.0'
+implementation 'com.github.Z-P-J:StateManager:1.0.0'
 ```
 
 step 2:
 
 ```java
 StateManager manager = StateManager.with(view)
-//                .setRecyclable(true)
                 .setNoNetworkView(R.layout.item_text_grid)
                 .onRetry(new StateManager.Action() {
                     @Override

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import static com.zpj.statemanager.State.STATE_CONTENT;
 import static com.zpj.statemanager.State.STATE_EMPTY;
@@ -19,18 +18,12 @@ public class StateManager extends BaseStateConfig<StateManager> {
 
     private final FrameLayout container;
 
-    private final View contentView;
-
-
     private final Context context;
 
     private Runnable onRetry;
     private Runnable onLogin;
 
-//    private boolean isRecyclable = false;
-
     private State state = STATE_CONTENT;
-
 
     public interface Action {
         void run(final StateManager manager);
@@ -43,7 +36,6 @@ public class StateManager extends BaseStateConfig<StateManager> {
     public static class StateConfig extends BaseStateConfig<StateConfig> { }
 
     private StateManager(View view) {
-        this.contentView = view;
         this.context = view.getContext();
         loadingViewHolder = config().loadingViewHolder;
         emptyViewHolder = config().emptyViewHolder;
@@ -58,6 +50,8 @@ public class StateManager extends BaseStateConfig<StateManager> {
             ViewGroup parent = (ViewGroup) view.getParent();
             parent.removeView(view);
             parent.addView(container);
+            view.setVisibility(View.GONE);
+            container.addView(view);
         }
     }
 
@@ -99,11 +93,6 @@ public class StateManager extends BaseStateConfig<StateManager> {
         };
         return this;
     }
-
-//    public StateManager setRecyclable(boolean recyclable) {
-//        this.isRecyclable = recyclable;
-//        return this;
-//    }
 
     public StateManager showContent() {
         changeState(STATE_CONTENT, null);
@@ -151,17 +140,16 @@ public class StateManager extends BaseStateConfig<StateManager> {
         this.state = state;
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         View view = null;
-        container.removeAllViews();
+        for (int i = 1; i < container.getChildCount(); i++) {
+            container.removeViewAt(i);
+        }
         switch (state) {
             case STATE_CONTENT:
-                if (contentView.getParent() instanceof ViewGroup) {
-                    ViewGroup parent = (ViewGroup) contentView.getParent();
-                    parent.removeView(contentView);
-                    container.addView(contentView, params);
-                    parent.addView(container);
-                } else {
-                    container.addView(contentView, params);
-                }
+                View contentView = container.getChildAt(0);
+                contentView.setVisibility(View.VISIBLE);
+                ViewGroup.LayoutParams p = contentView.getLayoutParams();
+                p.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                p.height = ViewGroup.LayoutParams.MATCH_PARENT;
                 return;
             case STATE_LOADING:
                 view = getLoadingViewHolder().onCreateView(context);
@@ -190,6 +178,7 @@ public class StateManager extends BaseStateConfig<StateManager> {
                 break;
         }
         if (view != null) {
+            container.getChildAt(0).setVisibility(View.GONE);
             container.addView(view, params);
         }
 

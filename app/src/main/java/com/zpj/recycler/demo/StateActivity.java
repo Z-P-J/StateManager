@@ -3,7 +3,7 @@ package com.zpj.recycler.demo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -16,21 +16,8 @@ public class StateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_state);
-
-//        StateManager.config()
-//                .setEmptyViewHolder(new CustomizedViewHolder() {
-//                    @Override
-//                    public void onViewCreated(View view) {
-//                        addImageView(R.drawable.ic_launcher_background);
-//                        addTextViewWithPadding(R.string.app_name, Color.GRAY);
-//                        addTextView("Custom Empty View", Color.GRAY);
-//                    }
-//                });
-
-
         final LinearLayout llContent = findViewById(R.id.ll_content);
         final StateManager manager = StateManager.with(llContent)
-//                .setRecyclable(true)
                 .setNoNetworkView(R.layout.item_text_grid)
                 .onRetry(new StateManager.Action() {
                     @Override
