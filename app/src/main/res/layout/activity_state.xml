@@ -80,24 +80,20 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="300dp"
                     android:background="@color/colorAccent"
                     />
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="1000dp"
-                    >
-
-
-
-
-                </LinearLayout>
+                    android:layout_height="500dp"
+                    android:background="#000"
+                    />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="400dp"
                     android:background="@color/colorPrimary"
                     />
 

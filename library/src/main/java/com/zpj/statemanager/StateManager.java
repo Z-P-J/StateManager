@@ -141,13 +141,17 @@ public class StateManager extends BaseStateConfig<StateManager> {
         this.state = state;
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         View view = null;
+        View contentView = container.getChildAt(0);
         for (int i = 1; i < container.getChildCount(); i++) {
             container.removeViewAt(i);
         }
+        if (state == STATE_CONTENT) {
+            contentView.setVisibility(View.VISIBLE);
+        } else {
+            contentView.setVisibility(View.INVISIBLE);
+        }
         switch (state) {
             case STATE_CONTENT:
-                View contentView = container.getChildAt(0);
-                contentView.setVisibility(View.VISIBLE);
                 ViewGroup.LayoutParams p = contentView.getLayoutParams();
                 p.width = ViewGroup.LayoutParams.MATCH_PARENT;
                 p.height = ViewGroup.LayoutParams.MATCH_PARENT;

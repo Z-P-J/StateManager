@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
 android {
-    buildToolsVersion '28.0.3'
-    compileSdkVersion 28
+    compileSdkVersion 31
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 31
     }
 
     buildTypes {
@@ -16,4 +16,25 @@ android {
         }
     }
 
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'com.zpj.statemanager'
+                artifactId = 'StateManager'
+                version = '1.0.0'
+            }
+            debug(MavenPublication) {
+                from components.debug
+
+                groupId = 'com.zpj.statemanager'
+                artifactId = 'StateManager'
+                version = '1.0.0'
+            }
+        }
+    }
 }
