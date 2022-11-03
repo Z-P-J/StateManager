@@ -185,21 +185,6 @@ public class BaseStateConfig<T extends BaseStateConfig<T>> {
             return null;
         }
         return viewHolder.onCreateView(context);
-//        switch (state) {
-//            case STATE_LOADING:
-//                return getLoadingViewHolder().onCreateView(context);
-//            case STATE_EMPTY:
-//                return getEmptyViewHolder().onCreateView(context);
-//            case STATE_ERROR:
-//                return getErrorViewHolder().onCreateView(context);
-//            case STATE_LOGIN:
-//                return getLoginViewHolder().onCreateView(context);
-//            case STATE_NO_NETWORK:
-//                return getNoNetworkViewHolder().onCreateView(context);
-//            case STATE_CONTENT:
-//            default:
-//                return null;
-//        }
     }
 
     public IViewHolder getViewHolder(State state) {
