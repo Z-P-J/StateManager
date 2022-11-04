@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zpj.recyclerview.state.R;
-
 public abstract class CustomizedViewHolder extends BaseViewHolder {
 
     protected LinearLayout container;
@@ -26,8 +24,8 @@ public abstract class CustomizedViewHolder extends BaseViewHolder {
         this.container.setOrientation(LinearLayout.VERTICAL);
         int padding = (int) context.getResources().getDimension(R.dimen.dp_32);
         this.container.setPadding(0, padding, 0, padding);
-        super.onCreateView(context);
         this.view = this.container;
+        super.onCreateView(context);
         return this.view;
     }
 
@@ -38,9 +36,11 @@ public abstract class CustomizedViewHolder extends BaseViewHolder {
     }
 
     public void addView(View view) {
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        view.setLayoutParams(params);
-        this.container.addView(view);
+        addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+    }
+
+    public void addView(View view, ViewGroup.LayoutParams params) {
+        this.container.addView(view, params);
     }
 
     protected TextView addTextViewWithPadding(int textId, int color) {
@@ -94,12 +94,19 @@ public abstract class CustomizedViewHolder extends BaseViewHolder {
         return addImageView(context.getResources().getDrawable(imgId));
     }
 
+    protected ImageView addImageView(int imgId, int width, int height) {
+        return addImageView(context.getResources().getDrawable(imgId), width, height);
+    }
+
     protected ImageView addImageView(Drawable drawable) {
+        return addImageView(drawable, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    }
+
+    protected ImageView addImageView(Drawable drawable, int width, int height) {
         ImageView imageView = new ImageView(context);
         imageView.setImageDrawable(drawable);
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        imageView.setLayoutParams(params);
-        addView(imageView);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(width, height);
+        addView(imageView, params);
         return imageView;
     }
 
