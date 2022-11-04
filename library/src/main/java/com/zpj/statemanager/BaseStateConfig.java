@@ -6,9 +6,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import com.zpj.recyclerview.state.R;
 
 public class BaseStateConfig<T extends BaseStateConfig<T>> {
 
@@ -87,6 +84,12 @@ public class BaseStateConfig<T extends BaseStateConfig<T>> {
         return setNoNetworkViewHolder(new ConstantViewHolder(view));
     }
 
+    private int getImageSize(Context context) {
+        int width = context.getResources().getDisplayMetrics().widthPixels;
+        int height = context.getResources().getDisplayMetrics().heightPixels;
+        return Math.min(width, height) / 4;
+    }
+
     public IViewHolder getLoadingViewHolder() {
         if (loadingViewHolder == null) {
             loadingViewHolder = new CustomizedViewHolder() {
@@ -105,7 +108,8 @@ public class BaseStateConfig<T extends BaseStateConfig<T>> {
             emptyViewHolder = new CustomizedViewHolder() {
                 @Override
                 public void onViewCreated(View view) {
-                    addImageView(R.drawable.ic_state_empty);
+                    int size = getImageSize(view.getContext());
+                    addImageView(R.drawable.ic_state_empty, size, size);
                     addTextViewWithPadding(R.string._text_empty, Color.GRAY);
                 }
             };
@@ -124,7 +128,8 @@ public class BaseStateConfig<T extends BaseStateConfig<T>> {
                             onRetry();
                         }
                     });
-                    addImageView(R.drawable.ic_state_error);
+                    int size = getImageSize(view.getContext());
+                    addImageView(R.drawable.ic_state_error, size, size);
                     if (!TextUtils.isEmpty(getMsg())) {
                         int padding = context.getResources().getDimensionPixelSize(R.dimen.text_padding);
                         addTextView("错误信息：" + getMsg(), Color.RED, 14, 2 * padding);
@@ -143,7 +148,8 @@ public class BaseStateConfig<T extends BaseStateConfig<T>> {
             loginViewHolder = new CustomizedViewHolder() {
                 @Override
                 public void onViewCreated(View view) {
-                    addImageView(R.drawable.ic_state_login);
+                    int size = getImageSize(view.getContext());
+                    addImageView(R.drawable.ic_state_login, size, size);
                     addTextViewWithPadding(R.string._text_login, Color.GRAY);
                     Button button = new Button(context);
                     button.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +177,8 @@ public class BaseStateConfig<T extends BaseStateConfig<T>> {
                             onRetry();
                         }
                     });
-                    addImageView(R.drawable.ic_state_no_network);
+                    int size = getImageSize(view.getContext());
+                    addImageView(R.drawable.ic_state_no_network, size, size);
                     addTextViewWithPadding(R.string._text_no_network, Color.GRAY);
                 }
             };
